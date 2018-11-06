@@ -4,13 +4,13 @@
 
 /*
 	SHIPS
-	0 = nothing
-	1 = ship
+	0 = Nothing
+	1 = Ship
 
 	BOARD
-	O = inactive
-	X = miss
-	H = hit
+	O = Inactive
+	X = Miss
+	H = Hit
 */
 
 // Display enemy battleground
@@ -215,7 +215,6 @@ int place3( int (*ship)[10]){
 	printf("1x3 piece successfully placed.\n\n");
 
 }
-
 
 int main(){
 
