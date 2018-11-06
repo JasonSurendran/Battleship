@@ -8,7 +8,7 @@ The classic Battleship game remade using a more custom gameplay in C. Incorporat
 - Note: Most gcc compilers should be compatible
 
 
-## Running (From IDE)
+## Running
 
 1. Download file
 2. Compile from CMD 
