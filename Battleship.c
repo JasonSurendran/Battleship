@@ -2,18 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*
-	SHIPS
-	0 = Nothing
-	1 = Ship
 
-	BOARD
-	O = Inactive
-	X = Miss
-	H = Hit
-*/
-
-// Display enemy battleground
+// Display Board
 int displayboard( char (*board)[10] ){
 	printf(" ");
 	for(int i = 0; i<10; i++)
@@ -30,13 +20,12 @@ int displayboard( char (*board)[10] ){
 	printf("\n");
 }
 
-// Display where your ships are
+// Display Ships
 int displayship( int (*ship)[10]){
 	printf("  ");
 	for(int i = 0; i<10; i++)
 		printf("%d ", i);
 	printf("\n");
-
 
 	for(int i = 0; i<10; i++){
 		printf("%d ", i);
@@ -48,6 +37,8 @@ int displayship( int (*ship)[10]){
 	printf("\n");
 }
 
+//Verify location is viable
+//Provide options/guidance on where to place ships
 int checkspace( int (*ship)[10], int length){
 	int row, col;
 	int valid, empty, choice, options;
@@ -63,7 +54,9 @@ int checkspace( int (*ship)[10], int length){
 			right=0;
 			up=0;
 			down=0;
-			// Input coord from user
+			
+			//Take user input for coordinates
+			//Ensure Coordinates are viable
 			do{
 				printf("\nPlease enter the row value from 0-9: ");
 				scanf("%d", &row);
@@ -82,6 +75,8 @@ int checkspace( int (*ship)[10], int length){
 					printf("Invalid entry\n");
 			} while(valid==0);
 			valid = 0;
+			
+			//Alert player if position is occupied already
 			if (ship[row][col] == 1)
 				printf("Ship already exists in selected position. Please select empty position.\n");
 			else
@@ -92,7 +87,7 @@ int checkspace( int (*ship)[10], int length){
 		printf("\nSelect an Option:\n");
 		empty = 0;
 
-		// Within coords of board
+		// Ensure placements occur within board dimensions
 		if (row >= 0 && row <= 9 && col >= 0 && col <= 9){
 			// Check Left
 			if(col >= length-1){
@@ -159,7 +154,7 @@ int checkspace( int (*ship)[10], int length){
 			}
 			valid = 1;
 		}
-	}while(valid = 0 && options==0); // Actually able to do something at that point
+	}while(valid = 0 && options==0); 
 		
 	// Place piece at specified location
 	do{
@@ -191,25 +186,24 @@ int checkspace( int (*ship)[10], int length){
 	}while(choice == 0);
 }
 
-
+//Ship occupying 5 spaces
 int place5( int (*ship)[10]){
-
 	printf("1x5 piece\n");
 	checkspace( ship, 5);
 	printf("1x5 piece successfully placed.\n");
 
 }
 
+//Ship occupying 4 spaces
 int place4( int (*ship)[10]){
-	
 	printf("1x4 Piece\n");
 	checkspace( ship, 4);
 	printf("1x4 piece successfully placed.\n");
 
 }
 
+//Ship occupying 3 spaces
 int place3( int (*ship)[10]){
-
 	printf("1x3 Piece\n");
 	checkspace( ship, 3);
 	printf("1x3 piece successfully placed.\n\n");
@@ -227,7 +221,6 @@ int main(){
 	shipcount2 = 12;
 
 	// Create boards
-
 	char board1[10][10], board2[10][10];
 	int ships1[10][10] = {{0}};
 	int ships2[10][10] = {{0}};
@@ -240,7 +233,7 @@ int main(){
 	}
 
 
-	// Player 1 Set Board
+	// Create board for Player 1
 	printf("PLAYER 1:\n");
 	displayship( ships1 );
 
@@ -259,7 +252,7 @@ int main(){
 	system("clear");
 
 
-	// Player 2 Set Board 
+	// Create board for Player 2
 	printf("PLAYER 2:\n");
 	displayship( ships2 );
 
@@ -277,9 +270,9 @@ int main(){
 	scanf("%c", &clear);
 	system("clear");
 
-	// Attack each other
+	// Attacking
 	do{
-		// PLAYER 1
+		// Player 1's turn
 		if (turn == 1){
 			printf("Player 1's Turn!\n");
 			displayboard( board2 );
@@ -302,7 +295,8 @@ int main(){
 					printf("Invalid entry\n");
 			} while(valid==0);
 			valid = 0;
-			// HIT
+			
+			//Hit occured
 			if (ships2[row][col] == 1){
 				if (board2[row][col] == 'O'){
 					board2[row][col] = 'H';
@@ -315,7 +309,7 @@ int main(){
 				displayboard( board2 );
 				
 			}
-			// MISS
+			//Missed
 			else{
 				board2[row][col] = 'X';
 				printf("---MISS---\n");
@@ -323,7 +317,7 @@ int main(){
 			}
 		}
 
-		// PLAYER 2
+		//Player 2's turn
 		if (turn == 2){
 			printf("Player 2's Turn!\n");
 			displayboard( board1 );
@@ -346,7 +340,7 @@ int main(){
 					printf("Invalid entry\n");
 			} while(valid==0);
 			valid = 0;
-			// HIT
+			//Ship Hit
 			if (ships1[row][col] == 1){
 				if (board1[row][col] == 'O'){
 					board1[row][col] = 'H';
@@ -359,7 +353,7 @@ int main(){
 				displayboard( board1 );
 				
 			}
-			// MISS
+			//Missed
 			else{
 				board1[row][col] = 'X';
 				printf("---MISS---\n");
